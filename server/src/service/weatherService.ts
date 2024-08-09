@@ -60,7 +60,7 @@ class WeatherService {
       const lon = locationData[0].lon
       return {lat: lat, lon: lon}
     }
-    else {this.cityName = `City not found, here's the north pole instead!`
+    else {this.cityName = `location not found`
     return {lat: 90, lon: 0}
     }
   }
@@ -87,7 +87,10 @@ class WeatherService {
   // TODO: Build parseCurrentWeather method
   private parseCurrentWeather(response: any) {
       const current = response
-    return new Weather(this.cityName, `${new Date()}`, current.weather[0].icon, current.weather[0].description, current.main.temp, current.wind.speed, current.main.humidity)
+      let name
+      if (this.cityName === `location not found`) {name = `Location not found, here's the north pole instead`}
+      else {name = response.name}
+    return new Weather(name, `${new Date()}`, current.weather[0].icon, current.weather[0].description, current.main.temp, current.wind.speed, current.main.humidity)
     
   }
 
@@ -95,8 +98,11 @@ class WeatherService {
     const daysUnfiltered: any[] = response.list
     const days: any[] = daysUnfiltered.filter((entry: any) => entry.dt_txt.includes(`12:00:00`))
     const forecast: Weather[] = []
+    let name
+    if (this.cityName === `location not found`) {name = `Location not found, here's the north pole instead`}
+    else {name = response.name}
     for (const day of days) {
-      const weather = new Weather(this.cityName, day.dt_txt.slice(0, -9), day.weather[0].icon, day.weather[0].description, day.main.temp, day.wind.speed, day.main.humidity)
+      const weather = new Weather(name, day.dt_txt.slice(0, -9), day.weather[0].icon, day.weather[0].description, day.main.temp, day.wind.speed, day.main.humidity)
       forecast.push(weather)
     }
     return forecast
