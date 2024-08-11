@@ -12,12 +12,12 @@ This application can be used to check the current weather as well as a 5 day for
 - [Questions](#questions)
 
 ## Installation
-To use the app no installation is necessary, just visit the deployed webpage.
+To use the app no installation is necessary, just visit the deployed webpage at [https://weather-dashboard-s3ye.onrender.com](https://weather-dashboard-s3ye.onrender.com).
 
 If you'd like to install the repo itself to work on, download or git clone the folder to a destination of your choice. Having node.js installed will be necessary in this case.
 
 ## Usage
-To use the application, visit the deployed webpage at [](). To search for a city, enter the city name in the search form and submit. The search will return the current weather and forecast for the most relevant search result. If you'd like to refine your search, add a state code and country code after the city, separated by commas like so: 'cityname', 'state code', 'country code'.
+To use the application, visit the deployed webpage at [https://weather-dashboard-s3ye.onrender.com](https://weather-dashboard-s3ye.onrender.com). To search for a city, enter the city name in the search form and submit. The search will return the current weather and forecast for the most relevant search result. If you'd like to refine your search, add a state code and country code after the city, separated by commas like so: 'cityname', 'state code', 'country code'.
 
 Searches will be logged in the search history section. Clicking on an entry will repeat the search, with updated current weather and forecast. Click on the red trash can button to delete entries from your search history.
 
