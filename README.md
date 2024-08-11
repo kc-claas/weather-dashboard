@@ -30,9 +30,6 @@ This application is covered under the [MIT](./LICENSE) license
 ## Contribution
 If you'd like to contribute, you may contact me about becoming a contributor.
 
-## Test
-
-
 ## Questions
 Github: [kc-claas](https://github.com/kc-claas)
 
