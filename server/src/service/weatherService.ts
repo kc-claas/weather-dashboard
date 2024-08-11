@@ -92,7 +92,6 @@ class WeatherService {
       let name
       if (this.cityName === `location not found`) {name = `Location not found, here's the north pole instead!`}
       else {name = response.name}
-      console.log(current)
     return new Weather(name, `${(new Date()).toDateString()}`, current.weather[0].icon, current.weather[0].description, current.main.temp, current.wind.speed, current.main.humidity)
     
   }
