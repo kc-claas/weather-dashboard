@@ -55,13 +55,15 @@ class WeatherService {
   }
   // TODO: Create destructureLocationData method
   private destructureLocationData(locationData: Coordinates[]): Coordinates {
-    if (locationData[0]) {
+    try {
       const lat = locationData[0].lat
       const lon = locationData[0].lon
       return {lat: lat, lon: lon}
-    }
-    else {this.cityName = `location not found`
-    return {lat: 90, lon: 0}
+      
+    } catch (error) {
+      console.error(`location not found`)
+      this.cityName = `location not found`
+      return {lat: 90, lon: 0}
     }
   }
 
@@ -88,7 +90,7 @@ class WeatherService {
   private parseCurrentWeather(response: any) {
       const current = response
       let name
-      if (this.cityName === `location not found`) {name = `Location not found, here's the north pole instead`}
+      if (this.cityName === `location not found`) {name = `Location not found, here's the north pole instead!`}
       else {name = response.name}
     return new Weather(name, `${new Date()}`, current.weather[0].icon, current.weather[0].description, current.main.temp, current.wind.speed, current.main.humidity)
     
@@ -99,7 +101,7 @@ class WeatherService {
     const days: any[] = daysUnfiltered.filter((entry: any) => entry.dt_txt.includes(`12:00:00`))
     const forecast: Weather[] = []
     let name
-    if (this.cityName === `location not found`) {name = `Location not found, here's the north pole instead`}
+    if (this.cityName === `location not found`) {name = `Location not found`}
     else {name = response.name}
     for (const day of days) {
       const weather = new Weather(name, day.dt_txt.slice(0, -9), day.weather[0].icon, day.weather[0].description, day.main.temp, day.wind.speed, day.main.humidity)
@@ -116,15 +118,20 @@ class WeatherService {
   }
   // TODO: Complete getWeatherForCity method
   async getWeatherForCity() {
-    const locationData = await this.fetchAndDestructureLocationData()
-    const combinedWeatherData = await this.fetchWeatherData(locationData)
-    
-    const current = this.parseCurrentWeather(combinedWeatherData.currentWeather)
-    const forecast = this.parseForecast(combinedWeatherData.forecast)
-
-    const weather = this.buildForecastArray(current, forecast)
-    return weather;
- 
+    try {const locationData = await this.fetchAndDestructureLocationData()
+      const combinedWeatherData = await this.fetchWeatherData(locationData)
+      
+      const current = this.parseCurrentWeather(combinedWeatherData.currentWeather)
+      const forecast = this.parseForecast(combinedWeatherData.forecast)
+  
+      const weather = this.buildForecastArray(current, forecast)
+      return weather;
+   
+      
+    } catch (error) {
+      console.error(`there was an error getting weather data`)
+      return
+    }
   }
 }
 
